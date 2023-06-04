@@ -1,23 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import Game from "./components/Game";
+import Player from "./components/Player";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header className="page-header">Welcome to Memory Card!</header>
+      <Player />
+      <Game />
+      {/* Page-Header
+      Player Info
+        Game Level
+        Game Score
+        Game Board
+          Cards
+            Card Image
+            Card Name
+      Footer */}
     </div>
   );
 }
