@@ -1,31 +1,33 @@
 import { useState } from "react";
 import React from "react";
+import Card from "./Card";
+import uniqid from "uniqid";
+import "../styles/Board.css";
 
 function Board(props) {
-    const [numCards, setNumCards] = useState(3 + props.currentLevel);
+    let numCards = props.currentLevel + 3;
+    // const [numCards, setNumCards] = useState(3 + props.currentLevel);
     const [cardArray, setCardArray] = useState([]);
-
-    const updateNumCards = () => {
-        setNumCards(3 + props.currentLevel);
-    }
 
     const addCard = (id) => {
         setCardArray(cardArray => [...cardArray, id]);
     }
 
     const generateCards = () => {
-        for (let i = 0; i < numCards; i++) {
-            addCard(i);
+        if (cardArray.length < numCards) {
+            for (let i = 0; i < numCards; i++) {
+                addCard(uniqid());
+            }
         }
     }
 
     return (
         <div className="Board">
             <button onClick={generateCards}>Generate</button><br />
+            {numCards} Card(s) go here.
             <div className="card-container">
-                {numCards} Card(s) go here.
                 {cardArray.map((card) => {
-                    return <div key={card}>{card}</div>
+                    return <Card key={card} value={card}></Card>
                 })}
             </div>
         </div>
