@@ -6,6 +6,12 @@ function Game() {
     const [playerScore, setPlayerScore] = useState(0);
     const [currentLevel, setCurrentLevel] = useState(1);
 
+    const [gameEnd, setGameEnd] = useState(false);
+
+    const toggleGameEnd = () => {
+        setGameEnd(!gameEnd);
+    }
+
     const incrementScore = () => {
         setPlayerScore(playerScore + 1);
     }
@@ -38,6 +44,9 @@ function Game() {
             <button onClick={resetGame}>Reset Game</button>
             <Board
                 currentLevel={currentLevel}
+                toggleGameEnd={toggleGameEnd}
+                incrementScore={incrementScore}
+                incrementLevel={incrementLevel}
             />
         </div>
     )

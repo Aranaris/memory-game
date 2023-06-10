@@ -3,7 +3,9 @@ import "../styles/Card.css";
 
 function Card(props) {
     return (
-        <div className="Card">
+        <div className="Card" onClick={()=>{
+            props.selectCard(props.value);
+            }}>
             <div className="card-image">
                 Image PlaceHolder
             </div>
