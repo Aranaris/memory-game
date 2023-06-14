@@ -34,7 +34,9 @@ function Board(props) {
     }
 
     const selectCard = (id) => {
-        if (selectedCards.includes(id)) {
+        if (props.gameEnd) {
+            console.log("Game has Ended!")
+        } else if (selectedCards.includes(id)) {
             console.log("Game Over!")
             props.toggleGameEnd();
         } else {
@@ -48,17 +50,29 @@ function Board(props) {
         }
     }
 
-    return (
-        <div className="Board">
-            <button onClick={generateCards}>Generate</button><br />
-            {numCards} Card(s) go here.
-            <div className="card-container">
-                {cardArray.map((cardValue) => {
-                    return <Card key={cardValue} value={cardValue} selectCard={selectCard}></Card>
-                })}
+    if (!props.gameEnd) {
+        return (
+            <div className="Board">
+                <button onClick={generateCards}>Generate</button><br />
+                {numCards} Card(s) go here.
+                <div className="card-container">
+                    {cardArray.map((cardValue) => {
+                        return <Card key={cardValue} value={cardValue} selectCard={selectCard}></Card>
+                    })}
+                </div>
             </div>
-        </div>
-    )
+        )}
+    else {
+        return (
+            <div className="Board">
+                <button onClick={props.resetGame}>Reset Game</button>
+                <div className="game-over-message">
+                    Game Over! That has already been selected!
+                </div>
+            </div>
+        )
+    }
+
 }
 
 export default Board;

@@ -7,7 +7,7 @@ function Card(props) {
             props.selectCard(props.value);
             }}>
             <div className="card-image">
-                Image PlaceHolder
+                Image PlaceHolder {props.value}
             </div>
             <div className="card-info">
                 {props.value}
