@@ -14,12 +14,6 @@ function Game() {
         setGameEnd(!gameEnd);
     }
 
-    const gameEngine = () => {
-        resetGame(); //score = 0, level = 0, 4 cards
-        
-
-    }
-
     const incrementScore = () => {
         setPlayerScore(playerScore + 1);
     }
@@ -39,9 +33,6 @@ function Game() {
         setCurrentLevel(1);
     }
 
-    const skipToLevel = (level) => {
-        setCurrentLevel(level);
-    }
 
     const resetGame = () => {
         resetScore();

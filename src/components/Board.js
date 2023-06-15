@@ -4,8 +4,6 @@ import Card from "./Card";
 import "../styles/Board.css";
 
 function Board(props) {
-    let numCards = props.currentLevel + 3;
-    // const [numCards, setNumCards] = useState(3 + props.currentLevel);
     const [cardArray, setCardArray] = useState([]);
     const [selectedCards, setSelectedCards]  = useState([]);
 
@@ -13,12 +11,11 @@ function Board(props) {
         setCardArray(cardArray => [...cardArray, id]);
     }
 
-    const generateCards = () => {
-        if (cardArray.length < numCards) {
-            for (let i = 0; i < numCards; i++) {
-                addCard(i);
+    const generateCards = (numCards) => {
+        setCardArray([]);
+        for (let i = 0; i < numCards; i++) {
+            addCard(i);
             }
-        }
     }
 
     const getRandomInt = (max) => {
@@ -41,20 +38,24 @@ function Board(props) {
             props.toggleGameEnd();
         } else {
             props.incrementScore();
-            setSelectedCards(selectedCards => [...selectedCards, id]);
-            randomizeCards();
-            // if (selectedCards.length === cardArray.length) {
-            //     props.incrementLevel();
-            //     setSelectedCards([]);
-            // }
+            let newArray = [...selectedCards, id];
+            if (newArray.length === cardArray.length)  {
+                props.incrementLevel();
+                generateCards(cardArray.length + 1);
+                setSelectedCards([]);
+            } else {
+                setSelectedCards(newArray);
+                randomizeCards();
+            }
         }
     }
 
     if (!props.gameEnd) {
         return (
             <div className="Board">
-                <button onClick={generateCards}>Generate</button><br />
-                {numCards} Card(s) go here.
+                <button onClick={() => {
+                    generateCards(props.currentLevel + 3);
+                }}>Start Game</button><br />
                 <div className="card-container">
                     {cardArray.map((cardValue) => {
                         return <Card key={cardValue} value={cardValue} selectCard={selectCard}></Card>
@@ -67,7 +68,7 @@ function Board(props) {
             <div className="Board">
                 <button onClick={props.resetGame}>Reset Game</button>
                 <div className="game-over-message">
-                    Game Over! That has already been selected!
+                    Game Over! That card has already been selected!
                 </div>
             </div>
         )
